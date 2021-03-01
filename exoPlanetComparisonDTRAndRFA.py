@@ -98,8 +98,8 @@ sns.boxplot(ax = axes[4], data=dataset, x='LABEL', y='FLUX.5', palette='Set2')
 Decision tree Algorithm
 
 """
-from sklearn.tree import DecisionTreeRegressor
-regressor = DecisionTreeRegressor(random_state = 0)
+from sklearn.tree import DecisionTreeClassifier
+regressor = DecisionTreeClassifier(random_state = 0)
 regressor.fit(x_train, y_train)
 y_pred = regressor.predict(x_test)
 print ("Accuracy of DTR")
@@ -111,8 +111,8 @@ print (accuracy_score(y_test,y_pred, normalize = True))
 Random Forest Algorithm
 
 """
-from sklearn.ensemble import RandomForestRegressor
-rf_regressor = RandomForestRegressor(n_estimators=5, random_state = 0)
+from sklearn.ensemble import RandomForestClassifier
+rf_regressor = RandomForestClassifier(n_estimators=5, random_state = 0)
 rf_regressor.fit(x_train, y_train)
 y_pred_rf = rf_regressor.predict(x_test)
 from sklearn.metrics import accuracy_score
@@ -120,5 +120,3 @@ print ("Accuracy of RFA")
 # print (accuracy_score(y_test,y_pred_rf, normalize = True))
 print (y_pred_rf)
 
-# REASONS NOT TO USE RANDOM FOREST ALGORITHM
-# This produces a granular data which breaks the binary formation and hence we can get the accuracy of the prediction
