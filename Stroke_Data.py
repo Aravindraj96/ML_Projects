@@ -117,7 +117,7 @@ lrc = LogisticRegression(random_state=0)
 lrc.fit(x_train, y_train)
 y_pred_lrc = lrc.predict(x_test)
 
-from sklearn.metrics import confusion_matrix,accuracy_score
+from sklearn.metrics import confusion_matrix,accuracy_score, f1_score
 
 cm = confusion_matrix(y_test, y_pred_lrc)
 
@@ -140,9 +140,10 @@ print(cm)
 print(accuracy_score(y_test, y_pred_rfc))
 
 
+
 from sklearn.tree import DecisionTreeClassifier
 
-dtc = DecisionTreeClassifier(random_state=100)
+dtc = DecisionTreeClassifier(random_state=100, criterion='entropy')
 dtc.fit(x_train,y_train)
 y_pred_dtc = dtc.predict(x_test)
 
@@ -151,6 +152,7 @@ cm = confusion_matrix(y_test, y_pred_dtc)
 print(cm)
 
 print(accuracy_score(y_test, y_pred_dtc))
+
 
 from sklearn.svm import SVC
 classifier = SVC(kernel = 'rbf', random_state=1000)
@@ -163,11 +165,15 @@ print(cm)
 print(accuracy_score(y_test, y_pred_svc))
 
 
+
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=5, weights='distance', metric='minkowski', p=2 )
 knn.fit(x_train, y_train)
-y_pred_knn = classifier.predict(x_test)
+y_pred_knn = knn.predict(x_test)
 
 cm = confusion_matrix(y_test, y_pred_knn)
 print(cm)
 print(accuracy_score(y_test, y_pred_knn))
+
+
+### SVC WiNS THE GAME
