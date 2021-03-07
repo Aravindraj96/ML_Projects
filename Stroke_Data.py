@@ -37,31 +37,37 @@ sns.heatmap(dataset[cols].isnull(), cmap = sns.color_palette(colours))
 keeping all data 
 """
 df_all=dataset
+del df_all['work_type']
+del df_all['smoking_status']
+del df_all['Residence_type']
+
 df_all['bmi'].fillna(float(df_all['bmi'].mean()), inplace=True)
-df_all['smoking_status'].fillna(value="never smoked",inplace = True)
+# df_all['smoking_status'].fillna(value="never smoked",inplace = True)
 df_all['gender'] = df_all['gender'].astype('category')
 df_all['ever_married'] = df_all['ever_married'].astype('category')
-df_all['work_type'] = df_all['work_type'].astype('category')
-df_all['Residence_type'] = df_all['Residence_type'].astype('category')
-df_all['smoking_status'] = df_all['smoking_status'].astype('category')
+# df_all['work_type'] = df_all['work_type'].astype('category')
+# df_all['Residence_type'] = df_all['Residence_type'].astype('category')
+# df_all['smoking_status'] = df_all['smoking_status'].astype('category')
+
+
 df_hm = df_all
 print(df_all.dtypes)
-df_all=pd.get_dummies(df_all, columns=['Residence_type','smoking_status','work_type','gender'], prefix=['residence','smoking','work','gender'])
+df_all=pd.get_dummies(df_all, columns=['gender'], prefix=['gender'])
 le = LabelEncoder()
 # df_all['gender']=le.fit_transform(df_all['gender'])
 df_all['ever_married'] = le.fit_transform(df_all['ever_married'])
 
 df_hm['gender'] = le.fit_transform(df_hm['gender'])
-df_hm['Residence_type'] = le.fit_transform(df_hm['Residence_type'])
-df_hm['work_type'] = le.fit_transform(df_hm['work_type'])
-df_hm['smoking_status'] = le.fit_transform(df_hm['smoking_status'])
+# df_hm['Residence_type'] = le.fit_transform(df_hm['Residence_type'])
+# df_hm['work_type'] = le.fit_transform(df_hm['work_type'])
+# df_hm['smoking_status'] = le.fit_transform(df_hm['smoking_status'])
 df_hm['ever_married'] = le.fit_transform(df_hm['ever_married'])
 
 
 
 stroke = df_all['stroke']
 df_all.drop(labels=['stroke'],inplace=True,axis=1)
-df_all.insert(20, 'stroke', stroke)
+df_all.insert(10, 'stroke', stroke)
 
 
 fig, ax = plt.subplots(figsize=(20,20))
